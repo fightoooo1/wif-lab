@@ -22,10 +22,16 @@ jobs:
         with:
           workload_identity_provider: "projects/1072067557210/locations/global/workloadIdentityPools/github-pool/providers/github-provider"
           service_account: "deploy-bot@bustling-tree-409721.iam.gserviceaccount.com"
+          create_credentials_file: true
+
+      - name: Setup gcloud SDK
+        uses: google-github-actions/setup-gcloud@v2
+        with:
+          project_id: "bustling-tree-409721"
 
       - name: Deploy to Cloud Run
         run: |
-          gcloud run deploy wif-l-lab-service \
+          gcloud run deploy wif-lab-service \
             --source=. \
             --region=europe-west1 \
             --allow-unauthenticated
